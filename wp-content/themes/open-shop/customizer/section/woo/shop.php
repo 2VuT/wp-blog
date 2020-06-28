@@ -1,4 +1,21 @@
-<?php 
+<?php
+$wp_customize->add_setting('open_shop_prd_view', array(
+        'default'        => 'grid-view',
+        'capability'     => 'edit_theme_options',
+        'sanitize_callback' => 'open_shop_sanitize_select',
+    ));
+    $wp_customize->add_control('open_shop_prd_view', array(
+        'settings' => 'open_shop_prd_view',
+        'label'   => __('Display Product View','open-shop'),
+        'description' => __('(Select layout to display products at shop page.)','open-shop'),
+        'section' => 'open-shop-woo-shop-page',
+        'type'    => 'select',
+        'choices' => array(
+        'grid-view'   => __('Grid','open-shop'), 
+        'list-view'     => __('List','open-shop'),
+        
+        )
+    )); 
 /************************/
 //Shop product pagination
 /************************/

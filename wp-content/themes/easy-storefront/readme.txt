@@ -1,9 +1,7 @@
 === Easy Storefront ===
 Contributors: ceylonthemes
 Requires at least: WordPress 4.8.0
-Requires PHP: 5.6
-Tested up to: WordPress 5.3
-Version: 1.0.3
+Version: 1.0.4
 Template: new-york-business
 Stable tag: trunk
 License: GPLv2 or later

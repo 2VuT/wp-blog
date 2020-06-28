@@ -26,7 +26,15 @@
         // Menu Toggle
         function menuCollapse(){
             var w = $(window).innerWidth();
-            
+               if (w <= $resizeWidth){
+                   if ($aceMenu.attr('data-menu-style') == 'vertical'){
+                    $aceMenu.attr("data-menu-style","accordion");
+                    $aceMenu.addClass('collapse');
+                    return;
+                   }
+                }else{
+                    $aceMenu.attr("data-menu-style","vertical");
+                }
                 $aceMenu.attr('data-menu-style', $menuStyle);
                 $aceMenu.removeClass('collapse hide-menu').removeAttr('style');
                 $('.menu-toggle').hide();
@@ -61,6 +69,43 @@
                 return;
             });
             //End of Horizontal menu function
+            //Function for Vertical/Responsive Menu on mouse click
+            $aceMenu.on('click', 'li span.arrow', function (e){
+                 e.preventDefault();
+                if ($aceMenu.hasClass('collapse')==false){
+                   // return true;
+                }
+                $(this).off('mouseover', '> li a');
+                if ($(this).parent().parent().hasClass('menu-active')){
+                    $(this).parent().parent().children('.sub-menu').slideUp().removeClass('slide');
+                    $(this).parent().parent().removeClass('menu-active');
+                }else{ 
+                    if ($expandAll == true){
+                        $(this).parent().parent().addClass('menu-active').children('.sub-menu').slideDown($animationSpeed).addClass('slide');
+                        return;
+                    }
+                }
+            });
+             //Function for Vertical/Responsive Menu on mouse click
+            $aceMenu.on('keypress', 'li span.arrow', function (e){
+            var w = $(window).innerWidth();
+            if (w <= $resizeWidth){
+                 e.preventDefault();
+                if ($aceMenu.hasClass('collapse')==false){
+                   // return true;
+                }
+                $(this).off('mouseover', '> li a');
+                if ($(this).parent().parent().hasClass('menu-active')){
+                    $(this).parent().parent().children('.sub-menu').slideUp().removeClass('slide');
+                    $(this).parent().parent().removeClass('menu-active');
+                }else{ 
+                    if ($expandAll == true){
+                        $(this).parent().parent().addClass('menu-active').children('.sub-menu').slideDown($animationSpeed).addClass('slide');
+                        return;
+                    }
+                }
+            }
+            });
            
         });
         //End of Main function

@@ -39,3 +39,12 @@ $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'prof
 	'label' => __('Footer Color', 'profoxbiz'),
 	'section' => 'profoxbiz_footer_layout',	
 )));
+
+$wp_customize->add_setting( 'profoxbiz_footer_title_color', array(
+	'default' => '#fff',
+	'sanitize_callback'	=> 'sanitize_hex_color'
+));
+$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'profoxbiz_footer_title_color', array(
+	'label' => __('Footer Title Color', 'profoxbiz'),
+	'section' => 'profoxbiz_footer_layout',	
+)));

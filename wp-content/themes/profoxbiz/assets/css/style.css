@@ -283,9 +283,9 @@ input[type="submit"]:hover{
 /********************* Menu ***********************/
 .nav-menu li a{
  padding: 0.75rem 1.5rem;
-  color: #5f5f5f;
-  text-transform: uppercase;
-  font-weight: 600;
+ color: #5f5f5f;
+ text-transform: uppercase;
+ font-weight: 600;
 }
 .main-navigation ul ul{
   background-color: #fff;
@@ -310,6 +310,9 @@ input[type="submit"]:hover{
 }
 .bailboard.slick-slider{
   margin-bottom: 0;
+}
+.home.page-template-default .bailboard{
+  margin-bottom: 5rem;
 }
 .bailboard-item{
   position: relative;
@@ -873,5 +876,8 @@ input[type="submit"]:hover{
   .block{
     padding-top: 2rem;
     padding-bottom: 2rem;
+  }
+  .home.page-template-default .bailboard{
+    margin-bottom: 2rem;
   }
 }

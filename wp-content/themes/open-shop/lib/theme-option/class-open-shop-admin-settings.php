@@ -526,6 +526,9 @@ if ( ! class_exists( 'Open_Shop_Pro_Admin_Settings' ) ){
 				if($plugin_slug=='lead-form-builder'){
 				echo'<img src="'.esc_url( OPEN_SHOP_THEME_URI. 'lib/theme-option/assets/images/lead-form-builder.png' ).'" />'; 
 		        $detail='Lead form builder is a contact form as well as lead generator plugin.';
+                }elseif($plugin_slug=='wp-popup-builder'){
+				echo'<img src="'.esc_url( OPEN_SHOP_THEME_URI. 'lib/theme-option/assets/images/wp-popup-builder.png' ).'" />'; 
+		        $detail='WP Popup Builder is a powerfull tool to create amazing popup form for your site.';
                 }elseif($plugin_slug=='hunk-companion'){
                 	echo'<img src="'.esc_url(OPEN_SHOP_THEME_URI. 'lib/theme-option/assets/images/hunk-companion.png' ).'" />'; 
 		        $detail= 'Hunk Companion contain all features which are required to create a complete website. Main motive behind this plugin is to boost up functionality of ThemeHunk themes.';

@@ -120,6 +120,19 @@ $wp_customize->add_setting('social_shop_link_stumbleupon', array(
         'type'     => 'text',
         ));
 
+        $wp_customize->add_setting('social_shop_link_skype', array(
+        'default'           => '#',
+        'capability'        => 'edit_theme_options',
+        'sanitize_callback' => 'esc_url_raw',
+        
+        ));
+        $wp_customize->add_control('social_shop_link_skype', array(
+        'label'    => __('Skype URL', 'open-shop'),
+        'section'  => 'open-shop-social-icon',
+        'settings' => 'social_shop_link_skype',
+        'type'     => 'text',
+        ));
+
 /****************/
 //body doc link
 /****************/

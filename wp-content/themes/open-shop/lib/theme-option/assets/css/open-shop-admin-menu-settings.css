@@ -362,3 +362,6 @@ clear:both;
     margin: 15px 0!important;
     position: relative;
 }
+.open-shop-container .postbox.open-shop-recommend-plugins .rcp:last-child{
+clear:both;
+}

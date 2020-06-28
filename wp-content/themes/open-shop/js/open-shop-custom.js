@@ -89,7 +89,7 @@
                               $(".toggle-icon", this).toggleClass("icon-circle-arrow-down");
                              });
                              $(".product-cat-list").ThunkCatMenu({
-                                 resizeWidth:'', // Set the same in Media query       
+                                 resizeWidth:'767', // Set the same in Media query       
                                  animationSpeed:'fast', //slow, medium, fast
                                  accoridonExpAll:true//Expands all the accordion menu on click
                              });

@@ -5,7 +5,6 @@ if( !function_exists('profoxbiz_bailboard_slider_category')) :
 			$category_id = get_theme_mod('profoxbiz_slider_cat');
 			$args = array(
 				'post_type' => 'post',
-				// 'tax_query' => ,
 			);
 			if ( ! empty( $category_id ) ) {
 				$args['tax_query'] = array(

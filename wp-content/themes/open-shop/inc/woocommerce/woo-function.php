@@ -19,7 +19,7 @@ if ( ! function_exists( 'open_shop_cart_total_item' ) ){
  function open_shop_cart_total_item(){
    global $woocommerce; 
   ?>
- <a class="cart-contents" href="<?php echo wc_get_cart_url(); ?>" title="<?php esc_attr_e( 'View your shopping cart','open-shop' ); ?>"><i class="fa fa-shopping-basket"></i> <span class="cart-content"><?php echo sprintf ( _n( '%d item', '<span class="count-item">%d items</span>', WC()->cart->get_cart_contents_count(),'open-shop' ), WC()->cart->get_cart_contents_count() ); ?><?php echo WC()->cart->get_cart_total(); ?></span></a>
+  <a class="cart-contents" href="<?php echo wc_get_cart_url(); ?>" title="<?php _e( 'View your shopping cart','open-shop' ); ?>"><i class="fa fa-shopping-basket"></i> <span class="cart-content"><?php echo sprintf ( _n( '<span class="count-item">%d <span class="item">item</span></span>', '<span class="count-item">%d <span class="item">items</span></span>', WC()->cart->get_cart_contents_count() ,'open-shop'), WC()->cart->get_cart_contents_count() ); ?><?php echo WC()->cart->get_cart_total(); ?></span></a>
   <?php }
 }
 //cart view function
@@ -54,6 +54,16 @@ function open_shop_add_to_cart_dropdown_fragment( $fragments ){
    <?php $fragments['div.open-quickcart-dropdown'] = ob_get_clean();
    return $fragments;
 }
+add_filter('woocommerce_add_to_cart_fragments', 'open_shop_add_to_cart_fragment');
+function open_shop_add_to_cart_fragment($fragments){
+        ob_start();?>
+
+          <a class="cart-contents" href="<?php echo wc_get_cart_url(); ?>" title="<?php _e( 'View your shopping cart','open-shop' ); ?>"><i class="fa fa-shopping-basket"></i> <span class="cart-content"><?php echo sprintf ( _n( '<span class="count-item">%d <span class="item">item</span></span>', '<span class="count-item">%d <span class="item">items</span></span>', WC()->cart->get_cart_contents_count(),'open-shop' ), WC()->cart->get_cart_contents_count() ); ?><?php echo WC()->cart->get_cart_total(); ?></span></a>
+
+       <?php  $fragments['a.cart-contents'] = ob_get_clean();
+
+        return $fragments;
+    }
 /***********************************************/
 //Sort section Woocommerce category filter show
 /***********************************************/
@@ -161,7 +171,12 @@ if ( ! function_exists( 'open_shop_shop_content_start' ) ){
    */
   function open_shop_shop_content_start(){
     
-    echo '<div id="shop-product-wrap">';
+    $viewshow = get_theme_mod('open_shop_prd_view','grid-view');
+    if($viewshow == 'grid-view'){
+    echo '<div id="shop-product-wrap" class="thunk-grid-view">';
+    }else{
+    echo '<div id="shop-product-wrap" class="thunk-list-view">';
+    }
   }
 }
 
@@ -301,7 +316,7 @@ function open_shop_product_list_categories( $args = '' ){
         'hide_title_if_empty' => false,
         'hierarchical'        => true,
         'order'               => 'ASC',
-        'orderby'             => 'name',
+        'orderby'             => 'menu_order',
         'separator'           => '<br />',
         'show_count'          => 0,
         'show_option_all'     => '',

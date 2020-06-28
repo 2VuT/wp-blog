@@ -272,36 +272,36 @@ $class_original='original-social-icon';
 $class_original='';	
 }
 $social.='<ul class="social-icon ' .esc_attr($class_original). ' ">';
-if($f_link = get_theme_mod('social_link_facebook','#')) :
+if($f_link = get_theme_mod('social_shop_link_facebook','#')) :
 	$social.='<li><a target="_blank" href="'.esc_url($f_link).'"><i class="fa fa-facebook"></i></a></li>';
 endif;
-if($l_link = get_theme_mod('social_link_linkedin','#')) :
+if($l_link = get_theme_mod('social_shop_link_linkedin','#')) :
 	$social.='<li><a target="_blank" href="'.esc_url($l_link).'"><i class="fa fa-linkedin"></i></a></li>';
 endif;
-if($p_link = get_theme_mod('social_link_pintrest','#')) :
+if($p_link = get_theme_mod('social_shop_link_pintrest','#')) :
 	$social.='<li><a target="_blank" href="'.esc_url($p_link).'"><i class="fa fa-pinterest"></i></a></li>';
 endif;
-if($t_link = get_theme_mod('social_link_twitter','#')) :
+if($t_link = get_theme_mod('social_shop_link_twitter','#')) :
 	$social.='<li><a target="_blank" href="'.esc_url($t_link).'"><i class="fa fa-twitter"></i></a></li>';
 endif;
-if($insta_link = get_theme_mod('social_link_insta','#')) :
+if($insta_link = get_theme_mod('social_shop_link_insta','#')) :
 	$social.='<li><a target="_blank" href="'.esc_url($insta_link).'"><i class="fa fa-instagram"></i></a></li>';
 endif;
-if($tum_link = get_theme_mod('social_link_tumblr','#')) :
+if($tum_link = get_theme_mod('social_shop_link_tumblr','#')) :
 	$social.='<li><a target="_blank" href="'.esc_url($tum_link).'"><i class="fa fa-tumblr"></i></a></li>';
 endif;
-if($y_link = get_theme_mod('social_link_youtube','#')) :
+if($y_link = get_theme_mod('social_shop_link_youtube','#')) :
 	$social.='<li><a target="_blank" href="'.esc_url($y_link).'"><i class="fa fa-youtube-play"></i></a></li>';
 endif;
-if($stumb_link = get_theme_mod('social_link_stumbleupon','#')):
+if($stumb_link = get_theme_mod('social_shop_link_stumbleupon','#')):
 	$social.='<li><a target="_blank" href="'.esc_url($stumb_link).'">
 	 <i class="fa fa-stumbleupon"></i></a></li>';
 endif;
-if($dribble_link = get_theme_mod('social_link_dribble','#')):
+if($dribble_link = get_theme_mod('social_shop_link_dribble','#')):
 	$social.='<li><a target="_blank" href="'.esc_url($dribble_link).'">
 	 <i class="fa fa-dribbble"></i></a></li>';
 endif;
-if($skype_link = get_theme_mod('social_link_skype','#')):
+if($skype_link = get_theme_mod('social_shop_link_skype','#')):
 	$social.='<li><a target="_blank" href="'.esc_url($skype_link).'">
 	 <i class="fa fa-skype"></i></a></li>';
 endif;
@@ -326,6 +326,11 @@ $open_shop_color_scheme = get_theme_mod( 'open_shop_color_scheme','opn-light' );
 
             	 $classes[] = 'open-shop-dark';
          }
+         if( shortcode_exists( 'yith_wcwl_add_to_wishlist' ) ){
+                 $classes[] = 'open-shop-wishlist-activate';
+         } 
+
+
 return $classes;
 }
 add_filter( 'body_class', 'open_shop_body_classes' );

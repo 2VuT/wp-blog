@@ -214,7 +214,17 @@ if(!is_front_page() && !$new_york_business_option['home_header_section_disable']
 
 		
 
-?>
+if(class_exists('woocommerce')) { ?>
+
+<div id="scroll-cart" class="topcorner">
+	<ul>
+					
+		<li class="my-cart"><?php do_action( 'new_york_business_woocommerce_cart_top' ); ?></li>
+		<li><a class="login-register"  href="<?php echo esc_url($new_york_business_option['header_myaccount_link']); ?>"><i class="fa fa-user-circle">&nbsp;</i></a></li>
+		
+	</ul>
+</div>
+<?php } ?>
 
 <div id="content">
 	 
