@@ -246,6 +246,10 @@ msgstr ""
 msgid "Footer Color"
 msgstr ""
 
+#: inc/customizers/footer.php:48
+msgid "Footer Title Color"
+msgstr ""
+
 #: inc/customizers/header.php:4
 msgid "Header Layout Option"
 msgstr ""
@@ -466,11 +470,11 @@ msgstr ""
 msgid "H tag Color"
 msgstr ""
 
-#: inc/hooks/bailboard.php:58, inc/hooks/bailboard.php:59, inc/hooks/portfolio.php:51, inc/hooks/portfolio.php:52
+#: inc/hooks/bailboard.php:57, inc/hooks/bailboard.php:58, inc/hooks/portfolio.php:51, inc/hooks/portfolio.php:52
 msgid "Read More"
 msgstr ""
 
-#: inc/hooks/testimonial.php:63, template-parts/content-page.php:23, template-parts/content.php:84
+#: inc/hooks/testimonial.php:63, template-parts/content-page.php:23, template-parts/content.php:81
 msgid "Pages:"
 msgstr ""
 
@@ -539,6 +543,6 @@ msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
 #. translators: %s: Name of current post. Only visible to screen readers
-#: template-parts/content.php:73
+#: template-parts/content.php:70
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr ""

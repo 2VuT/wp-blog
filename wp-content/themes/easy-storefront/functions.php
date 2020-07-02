@@ -7,6 +7,8 @@ Learn more at https://codex.wordpress.org/Child_Themes.
 Note: this function loads the parent stylesheet before, then child theme stylesheet, leave it in place unless you know what you are doing.
 */
 
+define('EASY_STOREFRONT_TEMPLATE_DIR_URI', get_stylesheet_directory_uri());
+
 //add new settings
 require  get_stylesheet_directory().'/inc/settings.php';
 
@@ -325,6 +327,5 @@ function easy_storefront_customize_register( $wp_customize ) {
 
 }
 
-define('EASY_STOREFRONT_TEMPLATE_DIR_URI', get_stylesheet_directory_uri());
 
 

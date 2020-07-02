@@ -3,7 +3,9 @@ Theme Name: Easy Storefront
 Author: ceylonthemes
 Author URI: https://www.ceylonthemes.com/
 Theme URI: https://www.ceylonthemes.com/product/wordpress-storefront-theme
-Version: 1.0.5
+Version: 1.0.7
+Requires PHP: 5.6
+Tested up to: 5.4
 Template: new-york-business
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -652,6 +654,14 @@ a.category-menu::before {
 
 /* */
 
+.woocommerce div.product form.cart {
+    margin-bottom: 1em;
+}
+
+.entry-summary .product_meta {
+	padding-top: 8px;
+}
+
 .yith-wcwl-add-to-wishlist {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -683,7 +693,13 @@ a.category-menu::before {
 	/*border: 1px solid #23232c;*/
 }
 
-
+.entry-summary .yith-wcwl-wishlistexistsbrowse a {
+	color:#000000;
+	border: 1px solid #dbdbdb;
+	display: inline-block;
+	padding: 4px;
+	border-radius: 3px; 
+}
 
 /* */
 .hidden-title-form button i,

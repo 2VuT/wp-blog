@@ -76,8 +76,21 @@
               if ( typeof wc_add_to_cart_params === 'undefined' ){
                return false;
               }
+              $( document ).on( 'click', '.ajax_add_to_cart', function(e){ // Remove button selector
+                 e.preventDefault();
+                var data1 = {
+                 'action': 'open_shop_product_count_update'
+                };
+                 $.post(
+                 woocommerce_params.ajax_url, // The AJAX URL
+                 data1, // Send our PHP function
+                 function(response_data){
+                 $('a.cart-content').html(response_data);
+                 }
+               );
+             });
           // Ajax remove cart item
-               $( document ).on( 'click', 'a.remove,.ajax_add_to_cart', function(e){ // Remove button selector
+               $( document ).on( 'click', 'a.remove', function(e){ // Remove button selector
                e.preventDefault();
           // AJAX add to cart request
               var $thisbutton = $( this );
@@ -111,17 +124,16 @@
       return false;
   });
 },  
-       AddtoCartQuanty: function (){
+        AddtoCartQuanty: function (){
                 $('form.cart').on( 'click', 'button.plus, button.minus', function(){
                 // Get current quantity values
-                var qty = $( this ).closest( 'form.cart' ).find( '.qty' );
-                var val = parseFloat(qty.val());
+                var qty = $( this ).siblings('.quantity').find( '.qty' );
+                var val = parseFloat(qty.val()) ? parseFloat(qty.val()) : '0';
                 var max = parseFloat(qty.attr( 'max' ));
                 var min = parseFloat(qty.attr( 'min' ));
                 var step = parseFloat(qty.attr( 'step' ));
- 
                 // Change the value if plus or minus
-                if ( $( this ).is( '.plus' ) ) {
+                if ( $(this).is( '.plus' ) ) {
                     if ( max && ( max <= val ) ) {
                         qty.val( max );
                     } else {

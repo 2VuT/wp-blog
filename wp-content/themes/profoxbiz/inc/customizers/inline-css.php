@@ -60,6 +60,7 @@
 	// footer color
 	$profoxbiz_footer_background_color = get_theme_mod('profoxbiz_footer_background_color', '');
 	$profoxbiz_footer_content_color = get_theme_mod('profoxbiz_footer_content_color', '');
+	$profoxbiz_footer_title_color = get_theme_mod('profoxbiz_footer_title_color','');
 
 ?>
 
@@ -111,6 +112,9 @@ body{
 	.site-footer{
 		background-color: <?php echo esc_attr($profoxbiz_footer_background_color); ?> !important;
 		color: <?php echo esc_attr($profoxbiz_footer_content_color); ?> !important;
+	}
+	.site-footer .widget-title{
+		color: <?php echo esc_attr($profoxbiz_footer_title_color); ?> !important;
 	}
 	.site-footer a{
 		color: <?php echo esc_attr($profoxbiz_footer_content_color); ?> !important;

@@ -56,8 +56,8 @@ if ( ! class_exists( 'Open_Shop_Woocommerce_Ext' ) ) :
 			// Replace Store Sidebars.
 			add_filter( 'open_shop_get_sidebar', array( $this, 'open_shop_replace_store_sidebar' ) );
 		    // quick view ajax.
-			add_action( 'wp_ajax_alm_load_product_quick_view', array( $this, 'open_shop_load_product_quick_view_ajax' ) );
-			add_action( 'wp_ajax_nopriv_alm_load_product_quick_view', array( $this, 'open_shop_load_product_quick_view_ajax' ) );
+			add_action( 'wp_ajax_thnk_load_product_quick_view', array( $this, 'open_shop_load_product_quick_view_ajax' ) );
+			add_action( 'wp_ajax_nopriv_thnk_load_product_quick_view', array( $this, 'open_shop_load_product_quick_view_ajax' ) );
 			add_action('open_shop_woo_quick_view_product_summary', array( $this, 'open_shop_woo_single_product_content_structure' ), 10, 1 );
 			//shop
 			 add_action('woocommerce_before_shop_loop', array($this, 'open_shop_before_shop_loop'), 35);
@@ -434,10 +434,18 @@ if ( ! class_exists( 'Open_Shop_Woocommerce_Ext' ) ) :
 		 * Shop page view list and grid view.
 		 */
         function open_shop_before_shop_loop(){
+        $viewshow = get_theme_mod('open_shop_prd_view','grid-view');
+        
         echo '<div class="thunk-list-grid-switcher">';
-        echo '<a title="' . esc_attr__('Grid View', 'open-shop') . '" href="#" data-type="grid" class="thunk-grid-view selected"><i class="fa fa-th"></i></a>';
+        if($viewshow == 'grid-view'){
+             echo '<a title="' . esc_attr__('Grid View', 'open-shop') . '" href="#" data-type="grid" class="thunk-grid-view selected"><i class="fa fa-th"></i></a>';
 
-        echo '<a title="' . esc_attr__('List View', 'open-shop') . '" href="#" data-type="list" class="thunk-list-view"><i class="fa fa-bars"></i></a>';
+             echo '<a title="' . esc_attr__('List View', 'open-shop') . '" href="#" data-type="list" class="thunk-list-view"><i class="fa fa-bars"></i></a>';
+        }else{
+        	  echo '<a title="' . esc_attr__('Grid View', 'open-shop') . '" href="#" data-type="grid" class="thunk-grid-view"><i class="fa fa-th"></i></a>';
+
+             echo '<a title="' . esc_attr__('List View', 'open-shop') . '" href="#" data-type="list" class="thunk-list-view selected"><i class="fa fa-bars"></i></a>';
+        }
 
         echo '</div>';
         }

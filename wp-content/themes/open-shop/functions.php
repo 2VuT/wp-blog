@@ -129,6 +129,11 @@ define( 'OPEN_SHOP_THEME_SETTINGS', 'open-shop-settings' );
                 'name' => esc_html__( 'Lead Form Builder', 'open-shop' ),
                 'active_filename' => 'lead-form-builder/lead-form-builder.php',
             ),
+            'wp-popup-builder' => array(
+                'name' => esc_html__( 'WP Popup Builder – Popup Forms & Newsletter', 'open-shop' ),
+                'active_filename' => 'wp-popup-builder/wp-popup-builder.php',
+            ),
+            
             'one-click-demo-import' => array(
                 'name' => esc_html__( 'One Click Demo Import', 'open-shop' ),
                 'active_filename' => 'one-click-demo-import/one-click-demo-import.php',

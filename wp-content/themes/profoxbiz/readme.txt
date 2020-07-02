@@ -1,10 +1,10 @@
 === profoxbiz ===
 
 Contributors: automattic
-Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, blog, education, translation-ready
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, blog, education, translation-ready, custom color, layout option, sidebar option, theme options, header options, page layout option, blog layout option, typography, theme color option
 Requires at least: 4.7
 Tested up to: 5.4.1
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ Profoxbiz WordPress Theme, Copyright 2019
 Profoxbiz is distributed under the terms of the GNU GPL
 
 == Changelog ==
+= 1.0.7 =
+* Improved design
+
 = 1.0.6 =
 * Fixed on front page
 

@@ -59,7 +59,7 @@ if( !function_exists('profoxbiz_team_category')) :
 											<div class="team-caption">
 												<h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>		
 											</div>																				
-										</div> <!-- end / portfolio-sm-item -->
+										</div> <!-- end / team-item -->
 										<?php
 									endwhile;
 									?>

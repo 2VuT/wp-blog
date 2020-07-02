@@ -54,7 +54,7 @@ if( !function_exists('profoxbiz_portfolio_category')) :
 												
 											</div>
 											
-										</div> <!-- end / bailboard-item -->
+										</div> <!-- end / portfolio-lg-item -->
 										<?php
 									endwhile;
 									?>

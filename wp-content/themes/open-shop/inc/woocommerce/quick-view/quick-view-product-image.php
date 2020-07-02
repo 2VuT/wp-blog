@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $post, $product, $woocommerce;
 
 ?>
-<div class="alm-qv-image-slider flexslider images">
-	<div class="alm-qv-slides slides">
+<div class="thnk-qv-image-slider flexslider images">
+	<div class="thnk-qv-slides slides">
 	<?php
 	if ( has_post_thumbnail() ) {
 		$attachment_ids = $product->get_gallery_image_ids();

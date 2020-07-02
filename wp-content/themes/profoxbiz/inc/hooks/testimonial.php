@@ -67,7 +67,7 @@ if( !function_exists('profoxbiz_testimonial_category')) :
 
 												
 											</div>
-										</div> <!-- end / bailboard-item -->
+										</div> <!-- end / testimonial-lg-item -->
 										<?php
 									endwhile;
 									?>

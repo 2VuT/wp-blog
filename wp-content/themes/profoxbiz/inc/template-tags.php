@@ -163,7 +163,3 @@ if ( ! function_exists( 'profoxbiz_post_thumbnail' ) ) :
 		endif; // End is_singular().
 	}
 endif;
-
-
-// working on customizer but not work on main url
-// 

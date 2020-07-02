@@ -317,7 +317,7 @@ $open_shop_menu_open = get_theme_mod('open_shop_mobile_menu_open','left');
                   }  
                     open_shop_main_nav_menu();
               }else{
-                 wp_nav_menu(array( 
+                 wp_page_menu(array( 
                  'items_wrap'  => '<ul class="open-shop-menu" data-menu-style="horizontal">%3$s</ul>',
                  'link_before' => '<span>',
                  'link_after'  => '</span>'));
@@ -507,7 +507,7 @@ add_action('open_shop_site_preloader','open_shop_preloader');
                   }  
                 open_shop_stick_nav_menu();
               }else{
-                 wp_nav_menu(array( 
+                 wp_page_menu(array( 
                  'items_wrap'  => '<ul class="open-shop-menu" data-menu-style="horizontal">%3$s</ul>',
                  'link_before' => '<span>',
                  'link_after'  => '</span>'));

@@ -10,9 +10,6 @@
 ?>
 
 <?php
-
-// get_theme_mod to get_option
-
 $profoxbiz_blog_post_date_show = get_theme_mod('profoxbiz_blog_post_date_show', true);
 $profoxbiz_blog_post_author_show = get_theme_mod('profoxbiz_blog_post_author_show', true);
 $profoxbiz_blog_post_excerpt_show = get_theme_mod('profoxbiz_blog_post_excerpt_show', true);

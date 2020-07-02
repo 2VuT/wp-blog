@@ -7,7 +7,7 @@
 
 while ( have_posts() ) :
 	the_post(); ?>
-<div class="alm-woo-product">
+<div class="thnk-woo-product">
 	<div id="product-<?php the_ID(); ?>" <?php post_class( 'product' ); ?>>
 		<?php do_action( 'open_shop_woo_qv_product_image' ); ?>
 		<div class="summary entry-summary">

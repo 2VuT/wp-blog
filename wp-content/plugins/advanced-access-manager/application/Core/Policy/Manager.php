@@ -10,6 +10,9 @@
 /**
  * AAM policy manager for a specific subject
  *
+ * @since 5.5.4 https://github.com/aamplugin/advanced-access-manager/issues/128
+ * @since 6.5.3 https://github.com/aamplugin/advanced-access-manager/issues/122
+ *              https://github.com/aamplugin/advanced-access-manager/issues/124
  * @since 6.4.0 Supporting Param's "Value" to be an array
  * @since 6.3.1 Fixed bug where draft policies get applied to assignees
  * @since 6.2.1 Added support for the POLICY_META token
@@ -19,7 +22,7 @@
  * @since 6.0.0 Initial implementation of the class
  *
  * @package AAM
- * @version 6.4.0
+ * @version 6.5.3
  */
 class AAM_Core_Policy_Manager
 {
@@ -151,11 +154,12 @@ class AAM_Core_Policy_Manager
      *
      * @return array
      *
-     * @since 6.4.1 Fixed https://github.com/aamplugin/advanced-access-manager/issues/84
+     * @since 6.5.3 https://github.com/aamplugin/advanced-access-manager/issues/124
+     * @since 6.4.1 https://github.com/aamplugin/advanced-access-manager/issues/84
      * @since 6.0.0 Initial implementation of the method
      *
      * @access public
-     * @version 6.4.1
+     * @version 6.5.3
      */
     public function getResources($s, $args = array())
     {
@@ -167,10 +171,14 @@ class AAM_Core_Policy_Manager
 
         $statements = array();
 
-        foreach ($this->tree['Statement'] as $key => $stm) {
-            if (preg_match($regex, $key) && $this->isApplicable($stm, $args)) {
-                // Remove the resource type to keep it clean
-                $statements[preg_replace($regex, '', $key)] = $stm;
+        foreach ($this->tree['Statement'] as $key => $stms) {
+            if (preg_match($regex, $key)) {
+                $stm = $this->getCandidateStatement($stms, $args);
+
+                if (!is_null($stm)) {
+                    // Remove the resource type to keep it clean
+                    $statements[preg_replace($regex, '', $key)] = $stm;
+                }
             }
         }
 
@@ -217,8 +225,11 @@ class AAM_Core_Policy_Manager
      *
      * @return boolean|null
      *
+     * @since 6.5.3 https://github.com/aamplugin/advanced-access-manager/issues/124
+     * @since 6.0.0 Initial implementation of the method
+     *
      * @access public
-     * @version 6.0.0
+     * @version 6.5.3
      */
     public function isAllowed($resource, $args = array())
     {
@@ -226,14 +237,56 @@ class AAM_Core_Policy_Manager
         $id      = strtolower($resource);
 
         if (isset($this->tree['Statement'][$id])) {
-            $stm = $this->tree['Statement'][$id];
+            $stm = $this->getCandidateStatement(
+                $this->tree['Statement'][$id], $args
+            );
 
-            if ($this->isApplicable($stm, $args)) {
+            if (!is_null($stm)) {
                 $allowed = (strtolower($stm['Effect']) === 'allow');
             }
         }
 
         return $allowed;
+    }
+
+    /**
+     * Based on multiple competing statements, get the best candidate
+     *
+     * @param array $statements
+     * @param array $args
+     *
+     * @return array|null
+     *
+     * @since 5.5.4 https://github.com/aamplugin/advanced-access-manager/issues/128
+     * @since 6.5.3 Initial implementation of the method
+     *
+     * @access protected
+     * @version 6.5.4
+     */
+    protected function getCandidateStatement($statements, $args = array())
+    {
+        $candidate = null;
+
+        if (is_array($statements) && isset($statements[0])) {
+            // Take in consideration ONLY currently applicable statements and select
+            // either the last statement or the one that is enforced
+            $enforced = false;
+
+            foreach($statements as $stm) {
+                if ($this->isApplicable($stm, $args)) {
+                    if (!empty($stm['Enforce'])) {
+                        $candidate = $stm;
+                        $enforced  = true;
+                    } elseif ($enforced === false) {
+                        $candidate = $stm;
+                    }
+                }
+            }
+        } else if ($this->isApplicable($statements, $args)) {
+            $candidate = $statements;
+        }
+
+        return $candidate;
     }
 
     /**
@@ -254,13 +307,14 @@ class AAM_Core_Policy_Manager
      *
      * @return void
      *
+     * @since 6.5.3 https://github.com/aamplugin/advanced-access-manager/issues/124
      * @since 6.4.1 Changed the way updatePolicyTree is invoked
      * @since 6.3.1 Fixed bug https://github.com/aamplugin/advanced-access-manager/issues/49
      * @since 6.2.0 Changed the way access policies are fetched
      * @since 6.0.0 Initial implementation of the method
      *
      * @access public
-     * @version 6.4.1
+     * @version 6.5.3
      */
     public function initialize()
     {
@@ -281,7 +335,7 @@ class AAM_Core_Policy_Manager
                 $this->updatePolicyTree($this->parsePolicy($policy));
             }
 
-            $this->_cleanupTree();
+            $this->_cleanupTree($this->tree['Statement']);
         }
     }
 
@@ -394,6 +448,8 @@ class AAM_Core_Policy_Manager
      *
      * @return array
      *
+     * @since 6.5.3 https://github.com/aamplugin/advanced-access-manager/issues/122
+     *              https://github.com/aamplugin/advanced-access-manager/issues/124
      * @since 6.4.1 Simplified by removing &$tree first param
      * @since 6.4.0 Supporting Param's Value to be more than just a scalar value
      * @since 6.2.1 Typecasting param's value
@@ -401,35 +457,16 @@ class AAM_Core_Policy_Manager
      * @since 6.0.0 Initial implementation of the method
      *
      * @access protected
-     * @version 6.4.1
+     * @version 6.5.3
      */
     protected function updatePolicyTree($addition)
     {
         $stmts  = &$this->tree['Statement'];
         $params = &$this->tree['Param'];
 
-        // Step #1. If there are any statements, let's index them by resource:action
-        // and insert into the list of statements
-        foreach ($addition['Statement'] as $stm) {
-            $resources = (isset($stm['Resource']) ? (array) $stm['Resource'] : array());
-            $actions   = (isset($stm['Action']) ? (array) $stm['Action'] : array(''));
-
-            foreach ($resources as $res) {
-                foreach($this->evaluatePolicyKey($res) as $resource) {
-                    foreach ($actions as $act) {
-                        $id = strtolower($resource . (!empty($act) ? ":{$act}" : ''));
-
-                        if (!isset($stmts[$id]) || empty($stmts[$id]['Enforce'])) {
-                            $stmts[$id] = $stm;
-                        }
-                    }
-                }
-            }
-        }
-
         $callback = array($this, 'getOption'); // Callback that hooks into get_option
 
-        // Step #2. If there are any params, let's index them and insert into the list
+        // Step #1. If there are any params, let's index them and insert into the list
         foreach ($addition['Param'] as $param) {
             if (!empty($param['Key'])) {
                 $param['Value'] = $this->replaceTokens($param['Value'], true);
@@ -445,6 +482,31 @@ class AAM_Core_Policy_Manager
                             // Hook into the core
                             add_filter('pre_option_' . $name, $callback, 1, 2);
                             add_filter('pre_site_option_' . $name, $callback, 1, 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Step #2. If there are any statements, let's index them by resource:action
+        // and insert into the list of statements
+        foreach ($addition['Statement'] as $stm) {
+            $resources = (isset($stm['Resource']) ? (array) $stm['Resource'] : array());
+            $actions   = (isset($stm['Action']) ? (array) $stm['Action'] : array(''));
+
+            foreach ($resources as $res) {
+                foreach($this->evaluatePolicyKey($res) as $resource) {
+                    foreach ($actions as $act) {
+                        $id = strtolower($resource . (!empty($act) ? ":{$act}" : ''));
+
+                        if (isset($stmts[$id])) {
+                            if (isset($stmts[$id][0])) {
+                                $stmts[$id][] = $stm;
+                            } else {
+                                $stmts[$id] = array($stmts[$id], $stm);
+                            }
+                        } else {
+                            $stmts[$id] = $stm;
                         }
                     }
                 }
@@ -564,19 +626,28 @@ class AAM_Core_Policy_Manager
     /**
      * Perform some internal clean-up
      *
+     * @param array &$statements
+     *
      * @return void
      *
+     * @since 6.5.3 https://github.com/aamplugin/advanced-access-manager/issues/124
+     * @since 6.0.0 Initial implementation of the method
+     *
      * @access private
-     * @version 6.0.0
+     * @version 6.5.3
      */
-    private function _cleanupTree()
+    private function _cleanupTree(&$statements)
     {
-        foreach($this->tree['Statement'] as $id => $stm) {
-            if (isset($stm['Resource'])) {
-                unset($this->tree['Statement'][$id]['Resource']);
-            }
-            if (isset($stm['Action'])) {
-                unset($this->tree['Statement'][$id]['Action']);
+        foreach($statements as $id => &$stm) {
+            if (is_array($stm) && isset($stm[0])) {
+                $this->_cleanupTree($stm);
+            } else {
+                if (isset($stm['Resource'])) {
+                    unset($statements[$id]['Resource']);
+                }
+                if (isset($stm['Action'])) {
+                    unset($statements[$id]['Action']);
+                }
             }
         }
     }
