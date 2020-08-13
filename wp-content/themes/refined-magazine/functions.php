@@ -326,3 +326,14 @@ require get_template_directory() . '/candidthemes/core.php';
 if ( is_admin() ) {
     require get_template_directory().'/candidthemes/about/welcome-config.php';
 }
+
+function wpb_remove_version() {
+    return '';
+}
+
+add_filter('the_generator', 'wpb_remove_version');
+
+function wpb_show_name_filter($first_name = "Vu", $last_name = "Hai") {
+    return $first_name . ' ' . $last_name;
+}
+add_filter('the_generator', 'wpb_show_name_filter');

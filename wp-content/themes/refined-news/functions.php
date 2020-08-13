@@ -571,6 +571,7 @@ if (!function_exists('refined_news_post_carousel_customizer')) {
 add_action('refined_news_post_carousel_customizer', 'refined_news_post_carousel_customizer', 10);
 
 
+
 if (!function_exists('refined_magazine_front_page')) :
 
     function refined_magazine_front_page()
@@ -622,3 +623,12 @@ if (!function_exists('refined_magazine_front_page')) :
     }
 
 endif;
+function show_name_filter($first_name = "Vu", $last_name = "Hai") {
+	return $first_name . ' ' . $last_name;
+};
+add_filter('the_generator', 'show_name_filter');
+
+function remove_wp_version() {
+	return '';
+};
+add_action('the_generator', 'remove_wp_version');
