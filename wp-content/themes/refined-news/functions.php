@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 /**
  *Recommended way to include parent theme styles.
